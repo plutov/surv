@@ -18,18 +18,18 @@ Dashboard displays all survey submissions from all survey services.
 
 ### Survey services
 
-Two survey services use the same codebase (`./survey`) as they solve the similar problem, but they have different configuration and deployed separately. We can scale only one survey service if necessary and easily redeploy one without affecting other. If we develop 2 completely different survey services it may have sense to have a separate codebase as well so different teams can work on them. 
+Two survey services use the same codebase (`./survey`) as they solve the similar problem, but they have different configuration and deployed separately. We can scale only one survey service if necessary and easily redeploy one without affecting other. If we develop 2 completely different survey services it makes sense to have a separate codebase so different teams can work on them. 
 
 We separate survey services by domain, for example one service for gaming, another for online store.
 
-Dashboard may access these services via known REST API endpoints, if there are multiple survey services dashboard may connect to `etcd` for service discovery to find an address of specific service.
+Dashboard may access these services via known REST API endpoints. If later we have a lot of services it makes sense to have a service discovery using Consul or etcd to know how to connect to services.
 
 #### Survey service configuration:
 
  - Name
  - Address
 
-I manage local configuration in environment variables of Docker Compose, the production config can be stored in Vault / KMS / etc.
+I manage local configuration in environment variables of Docker Compose, later the production config can be stored in Vault / KMS / etc.
 
 #### API
 
@@ -65,7 +65,7 @@ I implemented very simple consumers, without retries, statuses updates. It shoul
 
 - List of survey services: address, name, connector name
 
-The local configuration is stored in `./dashboard/config.json` file and contains 2 local services.
+The local configuration is stored in `./dashboard/config.json` file and contains 2 local services. If we want to make list of connected services more flexible we may store this list in Dashboard relational storage.
 
 ### Storage
 
