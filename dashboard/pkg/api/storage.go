@@ -28,8 +28,8 @@ func (s *Storage) Get(limit int, offset int) []DashboardRow {
 	if to > len(s.data) {
 		to = len(s.data)
 	}
-	if offset < len(s.data) {
-		offset = len(s.data)
+	if offset >= len(s.data) {
+		offset = len(s.data) - 1
 	}
 
 	return s.data[offset:to]
