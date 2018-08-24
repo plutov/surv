@@ -11,6 +11,7 @@ type DashboardRow struct {
 
 // SurveyService definition
 type SurveyService struct {
-	Name    string `json:"name"`
-	Address string `json:"address"`
+	Name          string `json:"name"`
+	Address       string `json:"address"`
+	ConnectorName string `json:"connector_name"`
 }

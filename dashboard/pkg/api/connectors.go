@@ -2,20 +2,28 @@ package api
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 	"time"
 )
 
 // Connector interface
 type Connector interface {
-	GetAnswers() ([]DashboardRow, error)
+	GetAnswers(string, string) ([]DashboardRow, error)
+}
+
+// GetConnectorInstanceByName func
+func GetConnectorInstanceByName(name string) (Connector, error) {
+	switch name {
+	case "surv":
+		return new(SurvConnector), nil
+	}
+
+	return nil, errors.New("connector is not implemented")
 }
 
 // SurvConnector implementation
-type SurvConnector struct {
-	Name    string
-	Address string
-}
+type SurvConnector struct{}
 
 // SurvAnswer definition
 type SurvAnswer struct {
@@ -26,13 +34,13 @@ type SurvAnswer struct {
 }
 
 // GetAnswers from SURV services
-func (c *SurvConnector) GetAnswers() ([]DashboardRow, error) {
+func (c *SurvConnector) GetAnswers(name string, address string) ([]DashboardRow, error) {
 	rows := []DashboardRow{}
 
 	httpClient := &http.Client{
 		Timeout: 10 * time.Second,
 	}
-	r, err := httpClient.Get(c.Address + "/answers")
+	r, err := httpClient.Get(address + "/answers")
 	if err != nil {
 		return rows, err
 	}
@@ -47,7 +55,7 @@ func (c *SurvConnector) GetAnswers() ([]DashboardRow, error) {
 
 	for _, a := range answers {
 		rows = append(rows, DashboardRow{
-			SurveyServiceName: c.Name,
+			SurveyServiceName: name,
 			SurveyID:          a.SurveyID,
 			AnswerID:          a.ID,
 			Values:            a.Values,

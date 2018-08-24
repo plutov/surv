@@ -2,11 +2,13 @@
 	"services": [
 		{
 			"name": "gaming-survey-service",
-			"address": "http://gaming-survey-service:8080"
+			"address": "http://gaming-survey-service:8080",
+			"connector_name": "surv"
 		},
 		{
 			"name": "store-survey-service",
-			"address": "http://store-survey-service:8080"
+			"address": "http://store-survey-service:8080",
+			"connector_name": "surv"
 		}
 	]
 }

@@ -1,7 +1,7 @@
 package api
 
 import (
-	uuid "github.com/satori/go.uuid"
+	uuid "github.com/gofrs/uuid"
 )
 
 // Storage - in-memory simple storage
@@ -16,7 +16,7 @@ func NewStorage() *Storage {
 
 // Save answer
 func (s *Storage) Save(a Answer) {
-	a.ID = uuid.NewV4().String()
+	a.ID = uuid.Must(uuid.NewV4()).String()
 	s.data = append(s.data, a)
 }
 

@@ -10,6 +10,14 @@
   version = "v3.2.0"
 
 [[projects]]
+  digest = "1:26f2ad8a198a88c3605401186a6be538326e7fbf1f14cb3ef4e0027c4f755f2a"
+  name = "github.com/gofrs/uuid"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "d41eeda0759468834c84365a32d1b1ec4264c75f"
+  version = "v3.1.0"
+
+[[projects]]
   digest = "1:87f801436ec4799e0e043ab348ff9f3e95b1b3761138158f0950ac67695cc272"
   name = "github.com/labstack/echo"
   packages = [
@@ -48,14 +56,6 @@
   pruneopts = "UT"
   revision = "0360b2af4f38e8d38c7fce2a9f4e702702d73a39"
   version = "v0.0.3"
-
-[[projects]]
-  digest = "1:274f67cb6fed9588ea2521ecdac05a6d62a8c51c074c1fccc6a49a40ba80e925"
-  name = "github.com/satori/go.uuid"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "f58768cc1a7a7e77a3bd49e98cdd21419399b6a3"
-  version = "v1.2.0"
 
 [[projects]]
   digest = "1:d867dfa6751c8d7a435821ad3b736310c2ed68945d05b50fb9d23aee0540c8cc"
@@ -108,9 +108,9 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/gofrs/uuid",
     "github.com/labstack/echo",
     "github.com/labstack/echo/middleware",
-    "github.com/satori/go.uuid",
     "github.com/sirupsen/logrus",
   ]
   solver-name = "gps-cdcl"

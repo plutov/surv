@@ -13,12 +13,13 @@ func (s *Server) StartQueueConsumer() {
 			contextLogger := s.logger.WithField("service", msg.SurveyService)
 			contextLogger.Info("starting data fetch")
 
-			connector := &SurvConnector{
-				Name:    msg.SurveyService.Name,
-				Address: msg.SurveyService.Address,
+			connector, err := GetConnectorInstanceByName(msg.SurveyService.ConnectorName)
+			if err != nil {
+				contextLogger.Error(err.Error())
+				continue
 			}
 
-			rows, err := connector.GetAnswers()
+			rows, err := connector.GetAnswers(msg.SurveyService.Name, msg.SurveyService.Address)
 			if err != nil {
 				contextLogger.WithError(err).Error("unable to fetch data")
 				continue
