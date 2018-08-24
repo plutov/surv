@@ -1,0 +1,99 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"description": "Dashboard service API",
+		"version": "0.0.1",
+		"title": "Dashboard service API",
+		"contact": {
+			"email": "a.pliutau@gmail.com"
+		}
+	},
+	"basePath": "/",
+	"tags": [],
+	"schemes": [
+		"http"
+	],
+	"paths": {
+		"/request": {
+			"post": {
+				"summary": "Request data fetch from all survey services",
+				"description": "",
+				"operationId": "request",
+				"parameters": [],
+				"responses": {
+					"201": {
+						"description": "OK"
+					},
+					"500": {
+						"description": "Unable to request data"
+					}
+				}
+			}
+		},
+		"/dashboard": {
+			"get": {
+				"summary": "Get dashboard rows",
+				"description": "",
+				"operationId": "dashboard",
+				"parameters": [
+					{
+						"in": "query",
+						"name": "limit",
+						"description": "Limit. 10 by default",
+						"required": false
+					},
+					{
+						"in": "query",
+						"name": "offset",
+						"description": "Offset. 0 by default",
+						"required": false
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/definitions/DashboardRows"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Unable to get dashboard"
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"DashboardRow": {
+			"properties": {
+				"survey_service_name": {
+					"type": "string"
+				},
+				"survey_id": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"answer_id": {
+					"type": "integer",
+					"format": "int64"
+				},
+				"values": {
+					"type": "object"
+				},
+				"user": {
+					"type": "string"
+				}
+			}
+		},
+		"DashboardRows": {
+			"type": "array",
+			"items": {
+				"$ref": "DashboardRow"
+			}
+		}
+	}
+}

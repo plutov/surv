@@ -1,0 +1,95 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"description": "Survey service API",
+		"version": "0.0.1",
+		"title": "Survey service API",
+		"contact": {
+			"email": "a.pliutau@gmail.com"
+		}
+	},
+	"basePath": "/",
+	"tags": [],
+	"schemes": [
+		"http"
+	],
+	"paths": {
+		"/answers": {
+			"post": {
+				"summary": "Submit an answer",
+				"description": "",
+				"operationId": "postAnswers",
+				"parameters": [
+					{
+						"in": "body",
+						"name": "body",
+						"description": "Answer object. `values` is a map of key=value pairs",
+						"required": false,
+						"schema": {
+							"$ref": "#/definitions/Answer"
+						}
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "OK"
+					},
+					"500": {
+						"description": "Unable to post an answer"
+					}
+				}
+			},
+			"get": {
+				"summary": "Get answers",
+				"description": "",
+				"operationId": "getAnswers",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/definitions/Answers"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "Internal server error"
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"Answer": {
+			"required": [
+				"id",
+				"values",
+				"user"
+			],
+			"properties": {
+				"survey_id": {
+					"type": "integer",
+					"format": "int64",
+					"example": 1
+				},
+				"values": {
+					"type": "object",
+					"minProperties": 1
+				},
+				"user": {
+					"type": "string",
+					"example": "John"
+				}
+			}
+		},
+		"Answers": {
+			"type": "array",
+			"items": {
+				"$ref": "Answer"
+			}
+		}
+	}
+}

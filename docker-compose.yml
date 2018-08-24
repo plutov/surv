@@ -1,0 +1,24 @@
+version: '3'
+services:
+    dashboard:
+        build:
+            context: dashboard
+        container_name: dashboard
+        ports:
+            - '7771:8080'
+    gaming-survey-service:
+        build:
+            context: survey
+        container_name: gaming-survey-service
+        environment:
+            - NAME=gaming-survey-service
+        ports:
+            - '7772:8080'
+    store-survey-service:
+        build:
+            context: survey
+        container_name: store-survey-service
+        environment:
+            - NAME=store-survey-service
+        ports:
+            - '7773:8080'
