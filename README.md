@@ -8,6 +8,8 @@ High level diagram:
 
 ![surv high level diagram](https://s3.amazonaws.com/pliutau.com/High+Level+Diagram.png)
 
+In this project we use JSON over HTTP for communication as survey services can be external ones and HTTP is the most common format nowadays. For internal services I'd go with protocol buffers as they are type safe and beter serialized.
+
 ### Data
 
 Dashboard displays all survey submissions from all survey services.
@@ -61,7 +63,9 @@ I implemented very simple consumers, without retries, statuses updates. It shoul
 
 #### Dashboard configuration
 
-- List of survey services: id, address, name
+- List of survey services: address, name, connector name
+
+The local configuration is stored in `./dashboard/config.json` file and contains 2 local services.
 
 ### Storage
 
@@ -124,10 +128,22 @@ I use Go to implement REST APIs as it is efficient language, easy to distribute 
 
 Unit tests are executed using TravisCI.
 
-#### TODO List
+Run them manually:
+```
+go test -v -race ./...
+```
 
-- Persistent volume storage.
+### Monitoring
+
+I'd go with StackDriver if project is deployed to Kubernetes Engine, because it has good integration with different metrics.
+
+### TODO List
+
+- Persistent volume storage instead of in-memory one.
 - Separate storages for each survey and dashboard.
 - API Auth.
+- Use RabbitMQ (or similar technology) for queue management instead of go channels.
 - As Survey service may have a lot of data, we need a faster way to request only latest data so we don't check duplicates.
 - Use GraphQL for Daashboard API, as we can decide what data do we need.
+- Write more Unit tests.
+- Setup Prometheus monitoring.
