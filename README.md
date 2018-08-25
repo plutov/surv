@@ -143,7 +143,8 @@ I'd go with StackDriver if project is deployed to Kubernetes Engine, because it 
 - Separate storages for each survey and dashboard.
 - API Auth.
 - Use RabbitMQ (or similar technology) for queue management instead of go channels.
-- As Survey service may have a lot of data, we need a faster way to request only latest data so we don't check duplicates.
+- As Survey service may have a lot of data, we need a faster way to request only latest data so we don't check duplicates. Use Pub/Sub mechanism where it is possible.
+- Currently aggregation is very simple. In real world we need to define models which will make sense and make an aggregation from raw data into structured one.
 - Use GraphQL for Daashboard API, as we can decide what data do we need.
 - Write more Unit tests.
 - Setup Prometheus monitoring.
